@@ -10,6 +10,17 @@ from app.users import (
     # google_oauth_client,
 )
 
+from pydantic import BaseModel
+from fastapi import FastAPI
+from fastapi_crudrouter import MemoryCRUDRouter as CRUDRouter
+
+
+class Potato(BaseModel):
+    id: int
+    color: str
+    mass: float
+
+
 app = FastAPI(openapi_url="/api/v1/users/openapi.json", docs_url="/api/v1/users/docs")
 
 app.include_router(
@@ -45,6 +56,9 @@ app.include_router(
 @app.get("/authenticated-route")
 async def authenticated_route(user: User = Depends(current_active_user)):
     return {"message": f"Hello {user.email}!"}
+
+
+app.include_router(CRUDRouter(schema=Potato))
 
 
 @app.on_event("startup")
