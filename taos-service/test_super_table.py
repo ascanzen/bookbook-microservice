@@ -8,7 +8,7 @@ import logging
 # db = TdEngineDatabase(DATABASENAME,host=HOST,user="root",passwd="taosdata")
 logger.setLevel(logging.DEBUG)
 DATABASENAME = "taos_tests"
-HOST = "127.0.0.1"
+HOST = "hw1.bookbook.net.cn"
 PORT = 6041
 # 默认端口 6041，默认用户名：root,默认密码：taosdata
 db = TdEngineDatabase(

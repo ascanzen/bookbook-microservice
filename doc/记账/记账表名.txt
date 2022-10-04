@@ -1,0 +1,55 @@
+    //记账表
+    let DailyAccountTable = "DailyAccountTable"
+    
+    //记账多媒体表
+    let AccountMultimediaTable = "AccountMultimediaTable"
+
+    //记账位置表
+    let AccountLocationTable = "AccountLocationTable"
+
+    
+    //记账类别表
+    let AccountClassTable = "AccountClassTable"
+    //账本表
+    let AccountBooksTable = "AccountBooksTable"
+    
+    //预算表
+    let BudgetClassTable = "BudgetClassTable"
+    
+    //资产账户表
+    let AssetsAccountTable = "AssetsAccountTable"
+
+    //我的卡片表
+    let CardAccountTable = "CardAccountTable"
+
+    //发票助手表
+    let InvoicesTable = "InvoicesTable"
+
+    //资产操作表
+    let AssetsActionTable = "AssetsActionTable"
+
+    //用户信息表
+    let UserInfoTable = "UserInfoTable"
+    
+    //快记表
+    let QuickTable = "QuickTable"
+
+    //推荐备注表
+    let RecommendNoteTable = "RecommendNoteTable"
+
+    //导入记录表
+    let ImportRecordTable = "ImportRecordTable"
+
+    //存钱表
+    let SaveMoneyTable = "SaveMoneyTable"
+
+    //存钱子类表
+    let SaveMoneySubTable = "SaveMoneySubTable"
+
+    //标签类别表
+    let TagCategoryTable = "TagCategoryTable"
+    //标签表
+    let TagSubTable = "TagSubTable"
+
+    //标签显示表
+    let TagSubShowTable = "TagSubShowTable"
