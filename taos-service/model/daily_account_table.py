@@ -18,7 +18,7 @@ db = TdEngineDatabase(
 
 
 class DailyAccount(SuperModel):
-
+    id = BinaryField(db_column="id")
     # 标题
     title = BinaryField(db_column="title")
     # 备注
