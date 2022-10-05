@@ -7,6 +7,7 @@ from app.db import get_db
 router = SQLAlchemyCRUDRouter(
     schema=Potato,
     create_schema=PotatoCreate,
+    update_schema=PotatoCreate,
     db_model=PotatoModel,
     db=get_db,
     prefix="potato",

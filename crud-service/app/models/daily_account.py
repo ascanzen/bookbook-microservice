@@ -1,15 +1,15 @@
-from sqlalchemy import Column, String, Float, Integer, Boolean
+from datetime import datetime
+from sqlalchemy import Column, String, Float, Integer, Boolean, DateTime, column
 from pydantic import BaseModel
-from sqlalchemy.ext.declarative import declarative_base
+from app.db import Base
 
 from uuid import UUID
 from typing import Union
 
-Base = declarative_base()
-
 
 class DailyAccountCreate(BaseModel):
-    id: Union[int, str, UUID]
+    id: int
+    syncTime: int
 
     # 标题
     title: str
@@ -58,8 +58,10 @@ class DailyAccount(DailyAccountCreate):
 
 
 class DailyAccountModel(Base):
-    __tablename__ = "potatoes"
+    __tablename__ = "daily_accounts"
     id = Column(Integer, primary_key=True, index=True)
+
+    syncTime = Column(Integer)
 
     # 标题
     title = Column(String)

@@ -1,8 +1,6 @@
 from sqlalchemy import Column, String, Float, Integer
 from pydantic import BaseModel
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
+from app.db import Base
 
 
 class PotatoCreate(BaseModel):
