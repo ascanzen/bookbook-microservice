@@ -10,7 +10,7 @@ from typing import Union
 class DailyAccountCreate(BaseModel):
     id: int
     # owner user id
-    user: int
+    user: str
     # syn timestamp
     syncTime: int
 
@@ -64,7 +64,7 @@ class DailyAccountModel(Base):
     __tablename__ = "daily_accounts"
     id = Column(Integer, primary_key=True, index=True)
 
-    user = Column(Integer)
+    user = Column(String)
 
     syncTime = Column(Integer)
 

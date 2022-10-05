@@ -2,7 +2,7 @@ import os
 import uuid
 from typing import Optional
 
-from fastapi import Depends, Request
+from fastapi import Depends, Request, HTTPException, Response
 from fastapi_users import BaseUserManager, FastAPIUsers, UUIDIDMixin
 from fastapi_users.authentication import (
     AuthenticationBackend,
@@ -39,6 +39,14 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
         self, user: User, token: str, request: Optional[Request] = None
     ):
         print(f"Verification requested for user {user.id}. Verification token: {token}")
+        # Manually assign the token value
+        if user.is_verified:
+            raise HTTPException(400, "Email is already verified")
+        if not user.is_active:
+            raise HTTPException(400, "Your account is disabled")
+        user.is_verified = True
+        # await user.save()
+        return Response(status_code=200)
 
 
 async def get_user_manager(user_db: SQLAlchemyUserDatabase = Depends(get_user_db)):

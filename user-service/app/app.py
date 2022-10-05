@@ -14,7 +14,7 @@ from app.models.daily_account import DailyAccount
 from fastapi_crudrouter import MemoryCRUDRouter as CRUDRouter
 
 
-app = FastAPI(openapi_url="/api/v1/users/openapi.json", docs_url="/api/v1/users/docs")
+app = FastAPI(openapi_url="/api/v1/openapi.json", docs_url="/api/v1/docs")
 
 
 from app.api.daily_account import router as daily_account_router
@@ -23,26 +23,28 @@ app.include_router(daily_account_router)
 
 
 app.include_router(
-    fastapi_users.get_auth_router(auth_backend), prefix="/auth/jwt", tags=["auth"]
+    fastapi_users.get_auth_router(auth_backend),
+    prefix="/api/v1/auth/jwt",
+    tags=["auth"],
 )
 app.include_router(
     fastapi_users.get_register_router(UserRead, UserCreate),
-    prefix="/auth",
+    prefix="/api/v1/auth",
     tags=["auth"],
 )
 app.include_router(
     fastapi_users.get_reset_password_router(),
-    prefix="/auth",
+    prefix="/api/v1/auth",
     tags=["auth"],
 )
 app.include_router(
     fastapi_users.get_verify_router(UserRead),
-    prefix="/auth",
+    prefix="/api/v1/auth",
     tags=["auth"],
 )
 app.include_router(
     fastapi_users.get_users_router(UserRead, UserUpdate),
-    prefix="/users",
+    prefix="/api/v1/users",
     tags=["users"],
 )
 # app.include_router(
