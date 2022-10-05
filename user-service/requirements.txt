@@ -2,4 +2,6 @@ fastapi
 fastapi-users[sqlalchemy]
 uvicorn[standard]
 aiosqlite
+asyncpg
+psycopg2-binary
 fastapi-crudrouter

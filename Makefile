@@ -19,9 +19,9 @@ deploy_release_imp:
 
 deploy_test:
 	git pull
-	cp .env_test .env
+	cp .env_test ./user-service/.env
 	rm -fr user-service.tar.gz
-	tar  cvzf - --exclude '__pycache__' user-service .env Makefile docker-compose.yml nginx_config.conf >> user-service.tar.gz
+	tar  cvzf - --exclude '__pycache__' user-service Makefile docker-compose.yml nginx_config.conf >> user-service.tar.gz
 	scp ./user-service.tar.gz root@hw1.bookbook.net.cn:/root/bookbook
 	ssh root@hw1.bookbook.net.cn "cd /root/bookbook; tar zxvf user-service.tar.gz; docker-compose down; docker-compose up;"
 
