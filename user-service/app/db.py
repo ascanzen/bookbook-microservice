@@ -6,11 +6,14 @@ from fastapi_users.db import (
     SQLAlchemyBaseUserTableUUID,
     SQLAlchemyUserDatabase,
 )
+from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 
-DATABASE_URL = "sqlite+aiosqlite:///./test.db"
+DATABASE_URL = "sqlite+aiosqlite:///./user.db"
+DATABASE_URL_SYNC = "sqlite:///./user.db"
+
 Base: DeclarativeMeta = declarative_base()
 
 
@@ -38,3 +41,18 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
 
 async def get_user_db(session: AsyncSession = Depends(get_async_session)):
     yield SQLAlchemyUserDatabase(session, User, OAuthAccount)
+
+
+engine_sync = create_engine(
+    DATABASE_URL_SYNC, connect_args={"check_same_thread": False}
+)
+Session_sync = sessionmaker(autocommit=False, autoflush=False, bind=engine_sync)
+
+
+def get_db():
+    session = Session_sync()
+    try:
+        yield session
+        session.commit()
+    finally:
+        session.close()

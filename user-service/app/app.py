@@ -16,6 +16,12 @@ from fastapi_crudrouter import MemoryCRUDRouter as CRUDRouter
 
 app = FastAPI(openapi_url="/api/v1/users/openapi.json", docs_url="/api/v1/users/docs")
 
+
+from app.api.daily_account import router as daily_account_router
+
+app.include_router(daily_account_router)
+
+
 app.include_router(
     fastapi_users.get_auth_router(auth_backend), prefix="/auth/jwt", tags=["auth"]
 )
@@ -49,33 +55,6 @@ app.include_router(
 @app.get("/authenticated-route")
 async def authenticated_route(user: User = Depends(current_active_user)):
     return {"message": f"Hello {user.email}!"}
-
-
-from typing import Any, Callable, List, Type, cast, Optional, Union
-
-
-router = CRUDRouter(schema=DailyAccount)
-
-
-# @router.get("")
-# def overloaded_get_all():
-#     return "My overloaded route that returns all the items"
-
-
-@router.put("/{item_id}")
-def overloaded_update(item_id: int, model: router.update_schema):
-    try:
-        res = router._get_one()(item_id)
-        if res.updateTime < model.updateTime:
-            return router._update(item_id, model)
-        else:
-            return router._get_one()(item_id)
-    except:
-        # not exist
-        return router._create()(model)
-
-
-app.include_router(router)
 
 
 @app.on_event("startup")
