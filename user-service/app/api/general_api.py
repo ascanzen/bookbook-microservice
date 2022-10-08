@@ -12,10 +12,17 @@ TCreate = TypeVar("TCreate")
 TUpdate = TypeVar("TUpdate")
 TModel = TypeVar("TModel")
 
+from pydantic_sqlalchemy import sqlalchemy_to_pydantic
 
-def get_router(
-    schema: TSchema, create: TCreate, update: TUpdate, model: TModel
-) -> APIRouter:
+
+def get_router(model: TModel) -> APIRouter:
+
+    PydanticCreate = sqlalchemy_to_pydantic(model)
+
+    class PydanticSchema(PydanticCreate):
+        class Config:
+            orm_mode = True
+
     def camel_to_snake(s):
         return (
             "".join(["_" + c.lower() if c.isupper() else c for c in s])
@@ -24,12 +31,12 @@ def get_router(
         )
 
     router = SQLAlchemyCRUDRouter(
-        schema=schema,
-        create_schema=create,
-        update_schema=update,
+        schema=PydanticSchema,
+        create_schema=PydanticCreate,
+        update_schema=PydanticCreate,
         db_model=model,
         db=get_db,
-        prefix=f"/api/v1/{camel_to_snake(str(schema).split('.')[-1])}",
+        prefix=f"/api/v1/{camel_to_snake(str(model).split('.')[-1])}",
     )
 
     def insert_or_update_imp(item_id: int, model: router.update_schema):
