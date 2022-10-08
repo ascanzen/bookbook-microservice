@@ -5,3 +5,5 @@ aiosqlite
 asyncpg
 psycopg2-binary
 fastapi-crudrouter
+loguru
+requests
