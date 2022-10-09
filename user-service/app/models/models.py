@@ -1,12 +1,7 @@
 # coding: utf-8
 from sqlalchemy import Boolean, Column, Integer, Table, Text, text, String
 from sqlalchemy.sql.sqltypes import NullType
-from app.db import Base as Base
-
-
-# class Base(Base1):
-#     user = Column(String)
-#     syncTime = Column(Integer)
+from app.db import Base
 
 
 class AccountBooksTable(Base):

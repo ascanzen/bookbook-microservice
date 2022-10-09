@@ -6,4 +6,8 @@ key = "Table"
 for w in dir():
     if key in w and len(w) > len(key):
         print(w)
-        routers.append(get_router(globals()[w]))
+        # 表中增加字段
+        t = globals()[w]
+        t.user = Column(String)
+        t.syncTime = Column(Integer)
+        routers.append(get_router(t))
