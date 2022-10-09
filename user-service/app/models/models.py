@@ -1,14 +1,16 @@
 # coding: utf-8
-from sqlalchemy import Boolean, Column, Integer, Table, Text, text
+from sqlalchemy import Boolean, Column, Integer, Table, Text, text, String
 from sqlalchemy.sql.sqltypes import NullType
-from sqlalchemy.ext.declarative import declarative_base
+from app.db import Base as Base
 
-Base = declarative_base()
-metadata = Base.metadata
+
+# class Base(Base1):
+#     user = Column(String)
+#     syncTime = Column(Integer)
 
 
 class AccountBooksTable(Base):
-    __tablename__ = 'AccountBooksTable'
+    __tablename__ = "AccountBooksTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -19,7 +21,7 @@ class AccountBooksTable(Base):
 
 
 class AccountClassTable(Base):
-    __tablename__ = 'AccountClassTable'
+    __tablename__ = "AccountClassTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -33,7 +35,7 @@ class AccountClassTable(Base):
 
 
 class AccountLocationTable(Base):
-    __tablename__ = 'AccountLocationTable'
+    __tablename__ = "AccountLocationTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -56,7 +58,7 @@ class AccountLocationTable(Base):
 
 
 class AccountMultimediaTable(Base):
-    __tablename__ = 'AccountMultimediaTable'
+    __tablename__ = "AccountMultimediaTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -68,7 +70,7 @@ class AccountMultimediaTable(Base):
 
 
 class AssetsAccountTable(Base):
-    __tablename__ = 'AssetsAccountTable'
+    __tablename__ = "AssetsAccountTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -84,7 +86,7 @@ class AssetsAccountTable(Base):
 
 
 class AssetsActionTable(Base):
-    __tablename__ = 'AssetsActionTable'
+    __tablename__ = "AssetsActionTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -105,7 +107,7 @@ class AssetsActionTable(Base):
 
 
 class BudgetClassTable(Base):
-    __tablename__ = 'BudgetClassTable'
+    __tablename__ = "BudgetClassTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -115,7 +117,7 @@ class BudgetClassTable(Base):
 
 
 class CardAccountTable(Base):
-    __tablename__ = 'CardAccountTable'
+    __tablename__ = "CardAccountTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -129,7 +131,7 @@ class CardAccountTable(Base):
 
 
 class DailyAccountTable(Base):
-    __tablename__ = 'DailyAccountTable'
+    __tablename__ = "DailyAccountTable"
 
     id = Column(Integer, primary_key=True)
     title = Column(Text)
@@ -151,7 +153,7 @@ class DailyAccountTable(Base):
 
 
 class ImportRecordTable(Base):
-    __tablename__ = 'ImportRecordTable'
+    __tablename__ = "ImportRecordTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -163,7 +165,7 @@ class ImportRecordTable(Base):
 
 
 class InvoicesTable(Base):
-    __tablename__ = 'InvoicesTable'
+    __tablename__ = "InvoicesTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -177,7 +179,7 @@ class InvoicesTable(Base):
 
 
 class QuickTable(Base):
-    __tablename__ = 'QuickTable'
+    __tablename__ = "QuickTable"
 
     id = Column(Integer, primary_key=True)
     title = Column(Text)
@@ -194,7 +196,7 @@ class QuickTable(Base):
 
 
 class RecommendNoteTable(Base):
-    __tablename__ = 'RecommendNoteTable'
+    __tablename__ = "RecommendNoteTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -205,7 +207,7 @@ class RecommendNoteTable(Base):
 
 
 class SaveMoneySubTable(Base):
-    __tablename__ = 'SaveMoneySubTable'
+    __tablename__ = "SaveMoneySubTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -220,7 +222,7 @@ class SaveMoneySubTable(Base):
 
 
 class SaveMoneyTable(Base):
-    __tablename__ = 'SaveMoneyTable'
+    __tablename__ = "SaveMoneyTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -231,7 +233,8 @@ class SaveMoneyTable(Base):
     logo = Column(Text)
     currentAmount = Column(Text)
     totalAmount = Column(Text)
-    bool = Column(NullType)
+    # TODO 不能有bool列
+    # bool = Column(NullType)
     saveType = Column(Integer)
     beginAmount = Column(Text)
     archiveStatus = Column(Boolean)
@@ -239,7 +242,7 @@ class SaveMoneyTable(Base):
 
 
 class TagCategoryTable(Base):
-    __tablename__ = 'TagCategoryTable'
+    __tablename__ = "TagCategoryTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -249,7 +252,7 @@ class TagCategoryTable(Base):
 
 
 class TagSubShowTable(Base):
-    __tablename__ = 'TagSubShowTable'
+    __tablename__ = "TagSubShowTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -261,7 +264,7 @@ class TagSubShowTable(Base):
 
 
 class TagSubTable(Base):
-    __tablename__ = 'TagSubTable'
+    __tablename__ = "TagSubTable"
 
     id = Column(Integer, primary_key=True)
     addTime = Column(Text)
@@ -272,8 +275,6 @@ class TagSubTable(Base):
     categoryAddTime = Column(Text)
 
 
-t_sqlite_sequence = Table(
-    'sqlite_sequence', metadata,
-    Column('name', NullType),
-    Column('seq', NullType)
-)
+# t_sqlite_sequence = Table(
+#     "sqlite_sequence", metadata, Column("name", NullType), Column("seq", NullType)
+# )

@@ -17,11 +17,7 @@ from pydantic_sqlalchemy import sqlalchemy_to_pydantic
 
 def get_router(model: TModel) -> APIRouter:
 
-    PydanticCreate = sqlalchemy_to_pydantic(model)
-
-    class PydanticSchema(PydanticCreate):
-        class Config:
-            orm_mode = True
+    PydanticSchema = sqlalchemy_to_pydantic(model)
 
     def camel_to_snake(s):
         return (
@@ -32,8 +28,8 @@ def get_router(model: TModel) -> APIRouter:
 
     router = SQLAlchemyCRUDRouter(
         schema=PydanticSchema,
-        create_schema=PydanticCreate,
-        update_schema=PydanticCreate,
+        create_schema=PydanticSchema,
+        update_schema=PydanticSchema,
         db_model=model,
         db=get_db,
         prefix=f"/api/v1/{camel_to_snake(str(model).split('.')[-1])}",

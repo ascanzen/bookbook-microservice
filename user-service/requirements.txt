@@ -7,3 +7,4 @@ psycopg2-binary
 fastapi-crudrouter
 loguru
 requests
+pydantic-sqlalchemy

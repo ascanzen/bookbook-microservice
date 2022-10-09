@@ -5,7 +5,7 @@ from fastapi_crudrouter import SQLAlchemyCRUDRouter
 from loguru import logger
 from app.users import get_user_manager
 
-from app.models.daily_account import DailyAccount, DailyAccountCreate, DailyAccountModel
+# from app.models.daily_account import DailyAccount, DailyAccountCreate, DailyAccountModel
 
 from app.db import get_db, User
 from app.schemas import UserCreate

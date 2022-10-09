@@ -10,18 +10,21 @@ from app.users import (
     # google_oauth_client,
 )
 
-from app.models.daily_account import DailyAccount
+# from app.models.daily_account import DailyAccount
 from fastapi_crudrouter import MemoryCRUDRouter as CRUDRouter
 
 
 app = FastAPI(openapi_url="/api/v1/openapi.json", docs_url="/api/v1/docs")
 
 
-from app.api.daily_account import router as daily_account_router
+# from app.api.daily_account import router as daily_account_router
 from app.api.apple_auth import router as apple_router
+from app.api.routers import routers
 
-app.include_router(daily_account_router)
+# app.include_router(daily_account_router)
 app.include_router(apple_router)
+for router in routers:
+    app.include_router(router)
 
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
