@@ -7,9 +7,6 @@ from fastapi_crudrouter import SQLAlchemyCRUDRouter
 from app.db import get_db, User
 from app.users import current_active_user
 
-TSchema = TypeVar("TSchema")
-TCreate = TypeVar("TCreate")
-TUpdate = TypeVar("TUpdate")
 TModel = TypeVar("TModel")
 
 from pydantic_sqlalchemy import sqlalchemy_to_pydantic
@@ -76,7 +73,7 @@ def get_router(model: TModel) -> APIRouter:
         db=Depends(get_db),
         user: User = Depends(current_active_user),
     ):
-        db_models: List[TSchema] = (
+        db_models: List[PydanticSchema] = (
             db.query(router.db_model)
             .filter(
                 router.db_model.user == str(user.id),

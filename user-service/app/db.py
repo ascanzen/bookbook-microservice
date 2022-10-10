@@ -1,4 +1,5 @@
 from typing import AsyncGenerator, List
+from loguru import logger
 
 from fastapi import Depends
 from fastapi_users.db import (
@@ -42,6 +43,8 @@ async def get_user_db(session: AsyncSession = Depends(get_async_session)):
     yield SQLAlchemyUserDatabase(session, User, OAuthAccount)
 
 
+logger.debug("------------------------------------------")
+logger.debug(config_settings.database_url_sync)
 engine_sync = create_engine(
     config_settings.database_url_sync, connect_args={"check_same_thread": False}
 )

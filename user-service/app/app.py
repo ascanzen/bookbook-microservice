@@ -17,6 +17,11 @@ from app.api.routers import routers
 app = FastAPI(openapi_url="/api/v1/openapi.json", docs_url="/api/v1/docs")
 
 
+@app.get("/api/v1/health")
+def read_root():
+    return "OK"
+
+
 app.include_router(apple_router)
 for router in routers:
     app.include_router(router)

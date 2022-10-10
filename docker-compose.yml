@@ -2,21 +2,35 @@ version: '3.7'
 
 services:
   user_service:
+    container_name: user_service
+    restart: unless-stopped
     build: ./user-service
     command: uvicorn app.app:app --reload --host 0.0.0.0 --port 8000
     volumes:
       - ./user-service/:/app/
     ports:
-      - 8002:8000
+      - 8000:8000
     environment:
       - DATABASE_URI=postgresql://user_db_username:user_db_password@user_db/user_db_dev
     depends_on:
       - user_db
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "http://localhost:8000/api/v1/health"
+        ]
+      interval: 5m
+      timeout: 5s
+      retries: 3
+      start_period: 15s
 
   user_db:
     image: postgres:12.1-alpine
     volumes:
-      - postgres_data_user:/var/lib/postgresql/data/
+      - ./postgres_data_user:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=user_db_username
       - POSTGRES_PASSWORD=user_db_password
@@ -31,5 +45,26 @@ services:
     depends_on:
       - user_service
 
+  caddy:
+    container_name: caddy
+    restart: unless-stopped
+    build:
+      context: ./caddy
+      dockerfile: ./Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./data/caddy_data:/data
+      - ./data/caddy_config:/config
+    depends_on:
+      - user_service
+    environment:
+      PROXY_BACKEND: user_service
+      PROXY_PORT: 8000
+      DOMAIN: ${DOMAIN}
+
 volumes:
   postgres_data_user:
+  caddy_data:
+  caddy_config:
